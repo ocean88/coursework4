@@ -1,4 +1,5 @@
 import json
+import os
 from abc import ABC, abstractmethod
 from vacancy import SuperJobVacancy, HHVacancy
 
@@ -19,7 +20,8 @@ class HeadHunterSaver(AbstractJSONSaver):
         self.vacancies = []
 
     def write_vacancies(self, vacancies):
-        with open(self.filename, 'w', encoding='utf-8') as file:
+        file_path = os.path.join(os.pardir, 'data', self.filename)  # путь до файла
+        with open(file_path, 'w', encoding='utf-8') as file:
             json.dump(vacancies, file, ensure_ascii=False, indent=4)
 
     def read_vacancies(self):
@@ -40,7 +42,8 @@ class SuperJobSaver(AbstractJSONSaver):
         self.vacancies = []
 
     def write_vacancies(self, vacancies):
-        with open(self.filename, 'w', encoding='utf-8') as file:
+        file_path = os.path.join(os.pardir, 'data', self.filename)  # путь до файла
+        with open(file_path, 'w', encoding='utf-8') as file:
             json.dump(vacancies, file, ensure_ascii=False, indent=4)
 
     def read_vacancies(self):
