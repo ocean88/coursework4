@@ -38,8 +38,14 @@ class HeadHunterAPI(AbstractAPI):
         vacancies_filtered = []
         for vacancy in vacancies:
             if not vacancy.get('salary'):
-                salary_from = None
-                salary_to = None
+                salary_from = 0
+                salary_to = 0
+            elif not vacancy['salary']['from']:
+                salary_from = 0
+                salary_to = vacancy['salary']['to']
+            elif not vacancy['salary']['to']:
+                salary_from = vacancy['salary']['from']
+                salary_to = 0
             else:
                 salary_from = vacancy['salary']['from']
                 salary_to = vacancy['salary']['to']

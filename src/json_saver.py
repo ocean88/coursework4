@@ -25,7 +25,8 @@ class HeadHunterSaver(AbstractJSONSaver):
             json.dump(vacancies, file, ensure_ascii=False, indent=4)
 
     def read_vacancies(self):
-        with open(self.filename, 'r', encoding='utf-8') as file:
+        file_path = os.path.join(os.pardir, 'data', self.filename)  # путь до файла
+        with open(file_path, 'r', encoding='utf-8') as file:
             vacancies = json.load(file)
             list_vacancies = []
             for vacancy in vacancies:
@@ -47,11 +48,13 @@ class SuperJobSaver(AbstractJSONSaver):
             json.dump(vacancies, file, ensure_ascii=False, indent=4)
 
     def read_vacancies(self):
-        with open(self.filename, 'r', encoding='utf-8') as file:
+        file_path = os.path.join(os.pardir, 'data', self.filename)  # путь до файла
+        with open(file_path, 'r', encoding='utf-8') as file:
             vacancies = json.load(file)
             list_vacancies = []
             for vacancy in vacancies:
-                list_vacancies.append(SuperJobVacancy(vacancy['name'], vacancy['url'],
+                list_vacancies.append(SuperJobVacancy(vacancy['name'],
+                                                      vacancy['url'],
                                                       vacancy['payment_from'],
                                                       vacancy['payment_to']))
 

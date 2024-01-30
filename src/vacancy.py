@@ -10,10 +10,6 @@ class AbstractVacancy(ABC):
     def __str__(self):
         pass
 
-    @abstractmethod
-    def __eq__(self, other):
-        pass
-
 
 class HHVacancy(AbstractVacancy):
     def __init__(self, title, url, salary_from, salary_to):
@@ -23,14 +19,10 @@ class HHVacancy(AbstractVacancy):
         self.salary_to = salary_to
 
     def __str__(self):
-        return f"""Название: {self.title}\n
-        Ссылка: {self.link}
-    """
+        return f"""Название: {self.title}\nСсылка: {self.url}\nЗарплата от: {self.salary_from} до: {self.salary_to}"""
 
-    def __eq__(self, other):
-        return (isinstance(other, HHVacancy) and self.title == other.title
-                and self.url == other.url and self.salary_from == other.salary_from
-                and self.salary_to == other.salary_to)
+    def __lt__(self, other):
+        return self.salary_from < other.salary_from
 
 
 class SuperJobVacancy(AbstractVacancy):
@@ -41,11 +33,7 @@ class SuperJobVacancy(AbstractVacancy):
         self.payment_to = payment_to
 
     def __str__(self):
-        return f"""Название: {self.title}\n
-        Ссылка: {self.link}
-    """
+        return f"""Название: {self.title}\nСсылка: {self.url}\nЗарплата от: {self.payment_from} до: {self.payment_to}"""
 
-    def __eq__(self, other):
-        return (isinstance(other, SuperJobVacancy) and self.title == other.title
-                and self.url == other.url and self.payment_from == other.payment_from
-                and self.payment_to == other.payment_to)
+    def __lt__(self, other):
+        return self.payment_from < other.payment_from
